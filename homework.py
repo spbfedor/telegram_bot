@@ -60,6 +60,7 @@ def send_message(
         logger.info('Сообщение успешно отправлено')
     except Exception as e:
         logger.error(e, exc_info=True)
+        raise e
 
 
 def get_api_answer(
@@ -105,6 +106,7 @@ def check_response(
         homework,
         list
     ):
+        logger
         raise TypeError(
             'Тип ответа не соответствует ожиданию. Объект не является списком'
         )
@@ -129,16 +131,20 @@ def parse_status(
 ):
     """Извлечение информации из словаря, подготовка к отправке"""
 
-    homework_name = homework.get(
+    homework_name = homework[
+        0
+    ][
         'homework_name'
-    )
+    ]
     if homework_name is None:
         raise KeyError(
             'Ключ "homework_name" не существует'
         )
-    homework_status = homework.get(
+    homework_status = homework[
+        0
+    ][
         'status'
-    )
+    ]
     if homework_status is None:
         raise KeyError(
             'Ключ "status" не существует'
