@@ -148,20 +148,16 @@ def parse_status(
     homework
 ):
     """Извлечение информации из словаря, подготовка к отправке."""
-    homework_name = homework[
-        0
-    ][
+    homework_name = homework.get(
         'homework_name'
-    ]
+    )
     if homework_name is None:
         raise KeyError(
             'Ключ "homework_name" не существует'
         )
-    homework_status = homework[
-        0
-    ][
+    homework_status = homework.get(
         'status'
-    ]
+    )
     if homework_status is None:
         raise KeyError(
             'Ключ "status" не существует'
