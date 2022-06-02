@@ -24,7 +24,9 @@ TELEGRAM_CHAT_ID = os.getenv(
 
 RETRY_TIME = 600
 ENDPOINT = 'https://practicum.yandex.ru/api/user_api/homework_statuses/'
-HEADERS = {'Authorization': f'OAuth {PRACTICUM_TOKEN}'}
+HEADERS = {
+    'Authorization': f'OAuth {PRACTICUM_TOKEN}'
+}
 
 
 HOMEWORK_STATUSES = {
@@ -40,10 +42,18 @@ logging.basicConfig(
     format='%(asctime)s, %(levelname)s, %(message)s, %(name)s'
 )
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-handler = logging.StreamHandler(sys.stdout)
-logger.addHandler(handler)
+logger = logging.getLogger(
+    __name__
+)
+logger.setLevel(
+    logging.INFO
+)
+handler = logging.StreamHandler(
+    sys.stdout
+)
+logger.addHandler(
+    handler
+)
 
 
 def send_message(
@@ -57,9 +67,14 @@ def send_message(
             TELEGRAM_CHAT_ID,
             text
         )
-        logger.info('Сообщение успешно отправлено')
+        logger.info(
+            'Сообщение успешно отправлено'
+        )
     except Exception as e:
-        logger.error(e, exc_info=True)
+        logger.error(
+            e,
+            exc_info=True
+        )
         raise e
 
 
@@ -81,14 +96,19 @@ def get_api_answer(
             params=params
         )
         if response.status_code != HTTPStatus.OK:
-            logger.error('Эндпоинт недоступен')
+            logger.error(
+                'Эндпоинт недоступен'
+            )
             raise Exception(
                 'Ответ сервера не соответствует ожиданию'
             )
         response = response.json()
         return response
     except requests.exceptions.RequestException as e:
-        logger.error(e, exc_info=True)
+        logger.error(
+            e,
+            exc_info=True
+        )
         raise requests.RequestException(
             f'Не удалось выполнить запрос: {e}'
         )
@@ -205,7 +225,9 @@ def main():
                 response
             )
             if not homework:
-                logger.debug('Статус домашней работы не обновился')
+                logger.debug(
+                    'Статус домашней работы не обновился'
+                )
             else:
                 send_message(
                     bot,
@@ -224,8 +246,14 @@ def main():
 
         except Exception as e:
             message = f'Сбой в работе программы: {e}'
-            send_message(bot, message)
-            logger.error(e, exc_info=True)
+            send_message(
+                bot,
+                message
+            )
+            logger.error(
+                e,
+                exc_info=True
+            )
             time.sleep(
                 RETRY_TIME
             )
