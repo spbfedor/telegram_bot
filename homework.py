@@ -60,7 +60,7 @@ def send_message(
     bot,
     message
 ):
-    """Отправка сообщения в Telegram чат"""
+    """Отправка сообщения в Telegram чат."""
     text = message
     try:
         bot.send_message(
@@ -81,8 +81,7 @@ def send_message(
 def get_api_answer(
     current_timestamp
 ):
-    """Делаем запрос к API, преобразуем ответ из JSON в формат Python"""
-
+    """Делаем запрос к API, преобразуем ответ из JSON в формат Python."""
     timestamp = current_timestamp or int(
         time.time()
     )
@@ -117,8 +116,7 @@ def get_api_answer(
 def check_response(
     response
 ):
-    """Проверка ответа API на корректность"""
-
+    """Проверка ответа API на корректность."""
     homework = response[
         'homeworks'
     ]
@@ -149,8 +147,7 @@ def check_response(
 def parse_status(
     homework
 ):
-    """Извлечение информации из словаря, подготовка к отправке"""
-
+    """Извлечение информации из словаря, подготовка к отправке."""
     homework_name = homework[
         0
     ][
@@ -180,8 +177,7 @@ def parse_status(
 
 
 def check_tokens():
-    """Проверка обязательных переменных окружения"""
-
+    """Проверка обязательных переменных окружения."""
     if (
         PRACTICUM_TOKEN and TELEGRAM_TOKEN and TELEGRAM_CHAT_ID
     ) is not None:
@@ -207,7 +203,6 @@ def check_tokens():
 
 def main():
     """Основная логика работы бота."""
-
     check_tokens()
     bot = telegram.Bot(
         token=TELEGRAM_TOKEN
