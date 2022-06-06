@@ -1,13 +1,11 @@
-from example_for_log import logging
-import sys
-import settings
+import logging
 import time
 from http import HTTPStatus
 
 import requests
-
 import telegram
 
+import settings
 
 PRACTICUM_TOKEN = settings.PRACTICUM_TOKEN
 TELEGRAM_TOKEN = settings.TELEGRAM_TOKEN
@@ -15,15 +13,6 @@ TELEGRAM_CHAT_ID = settings.TELEGRAM_CHAT_ID
 
 logger = logging.getLogger(
     __name__
-)
-logger.setLevel(
-    logging.INFO
-)
-handler = logging.StreamHandler(
-    sys.stdout
-)
-logger.addHandler(
-    handler
 )
 
 
@@ -107,17 +96,17 @@ def check_tokens():
     """Проверка обязательных переменных окружения."""
     if all([PRACTICUM_TOKEN and TELEGRAM_TOKEN and TELEGRAM_CHAT_ID]):
         return True
-    if PRACTICUM_TOKEN is False:
+    if not PRACTICUM_TOKEN:
         logger.critical(
             'Отсутствует обязательная переменная окружения: '
             'PRACTICUM_TOKEN'
         )
-    if TELEGRAM_TOKEN is False:
+    if not TELEGRAM_TOKEN:
         logger.critical(
             'Отсутствует обязательная переменная окружения: '
             'TELEGRAM_TOKEN'
         )
-    if TELEGRAM_CHAT_ID is False:
+    if not TELEGRAM_CHAT_ID:
         logger.critical(
             'Отсутствует обязательная переменная окружения: '
             'TELEGRAM_CHAT_ID'
