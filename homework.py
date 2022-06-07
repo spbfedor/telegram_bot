@@ -6,10 +6,7 @@ import requests
 import telegram
 
 import settings
-
-PRACTICUM_TOKEN = settings.PRACTICUM_TOKEN
-TELEGRAM_TOKEN = settings.TELEGRAM_TOKEN
-TELEGRAM_CHAT_ID = settings.TELEGRAM_CHAT_ID
+from settings import PRACTICUM_TOKEN, TELEGRAM_CHAT_ID, TELEGRAM_TOKEN
 
 logger = logging.getLogger(
     __name__
@@ -94,24 +91,25 @@ def parse_status(homework):
 
 def check_tokens():
     """Проверка обязательных переменных окружения."""
-    if all([PRACTICUM_TOKEN and TELEGRAM_TOKEN and TELEGRAM_CHAT_ID]):
-        return True
     if not PRACTICUM_TOKEN:
         logger.critical(
             'Отсутствует обязательная переменная окружения: '
             'PRACTICUM_TOKEN'
         )
+        return False
     if not TELEGRAM_TOKEN:
         logger.critical(
             'Отсутствует обязательная переменная окружения: '
             'TELEGRAM_TOKEN'
         )
+        return False
     if not TELEGRAM_CHAT_ID:
         logger.critical(
             'Отсутствует обязательная переменная окружения: '
             'TELEGRAM_CHAT_ID'
         )
-    return False
+        return False
+    return True
 
 
 def main():
